@@ -7,7 +7,6 @@ const register = async (req, res) => {
       email,
       activeCourses,
       firebaseId,
-      token,
       completedQuizzes,
       completedChapters,
       completedUnits,
@@ -22,7 +21,9 @@ const register = async (req, res) => {
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
-      return res.status(409).json({ message: "User already exists" });
+      return res
+        .status(200)
+        .json({ message: "User already exists", userExists: true });
     }
 
     const user = new User({
@@ -36,7 +37,9 @@ const register = async (req, res) => {
     });
 
     await user.save();
-    res.status(201).json({ message: "User registered successfully" });
+    res
+      .status(201)
+      .json({ message: "User registered successfully", userExists: false });
   } catch (error) {
     console.error("Error registering user:", error);
     res.status(500).json({ error: "Error registering user" });

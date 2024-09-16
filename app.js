@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser";
 import connectDB from "./src/db/db.js";
 import authRouter from "./src/router/authRouter.js";
 import courseRouter from "./src/router/courseRouter.js";
+import flascardRouter from "./src/router/flashcardRouter.js";
 import cors from "cors";
 import dotenv from "dotenv";
 
@@ -35,4 +36,4 @@ app.get("/api", (req, res) => {
   res.send("API is healthy");
 });
 
-app.use("/api", authRouter, courseRouter);
+app.use("/api", authRouter, courseRouter, flascardRouter);
